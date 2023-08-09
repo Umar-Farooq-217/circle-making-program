@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Circle Animation</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 500px;
+            margin: auto;
+        }
+        .frame {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .dot {
+            width: 15px;
+            height: 15px;
+            margin: 10px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+    </div>
+    <div class="container">
+        <div class="frame" id="frame"></div>
+    </div>
+    <script>
+        var request;
+        var i = 0;
+        var frame = document.getElementById('frame');
+
+        const stop = document.getElementById('stop');
+        const start = document.getElementById('start');
+
+        const colors = [
+            'rgb(248, 109, 132)',
+            'aqua',
+            'blue',
+            'rgb(15, 227, 235)',
+            'rgb(106, 206, 6)'
+        ];
+
+        const performAnimation = () => {
+            request = requestAnimationFrame(performAnimation);
+            const angle = (i % 5) * (Math.PI * 2) / 5;
+            const radius = 100;
+            const x = radius * Math.cos(angle);
+            const y = radius * Math.sin(angle);
+            const color = colors[i % colors.length];
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.style.transform = `translate(${x}px, ${y}px)`;
+            dot.style.backgroundColor = color;
+            frame.appendChild(dot);
+            console.log(i++);
+        };
+
+        start.addEventListener('click', () => {
+            console.log(i);
+            frame.innerHTML = ''; // Clear existing dots
+            request = requestAnimationFrame(performAnimation);
+        });
+
+        stop.addEventListener('click', () => {
+            cancelAnimationFrame(request);
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
